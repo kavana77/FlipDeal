@@ -7,16 +7,23 @@ let cart = [
   { productId: 1, name: 'Laptop', price: 50000, quantity: 1 },
   { productId: 2, name: 'Mobile', price: 20000, quantity: 2 },
 ];
-function addNewItemToCart(cart, productId, name, price, quantity) {
-  cart.push({ productId, name, price, quantity });
+function addNewItemToCart(productId, name, price, quantity) {
+  let newCartItem = {
+    productId: productId,
+    name: name,
+    price: price,
+    quantity: quantity
+  };
+  
+  cart.push(newCartItem); 
   return cart;
 }
 app.get('/cart/add', (req, res) => {
   let productId = parseInt(req.query.productId);
   let name = req.query.name;
   let price = parseFloat(req.query.price);
-  let quantity = parseInt(req.query.quantity);
-  let result = addNewItemToCart(cart, productId, name, price, quantity);
+  let quantity = parseInt(req.query.quantity)
+  let result = addNewItemToCart(productId, name, price, quantity);
   res.json({ result });
 });
 function updateQuantityById(cart, productId, quantity) {
