@@ -24,7 +24,7 @@ app.get('/cart/add', (req, res) => {
   let price = parseFloat(req.query.price);
   let quantity = parseInt(req.query.quantity)
   let result = addNewItemToCart(productId, name, price, quantity);
-  res.json({ result });
+  res.json({ cartItems:result });
 });
 function updateQuantityById(cart, productId, quantity) {
   for (let i = 0; i < cart.length; i++) {
@@ -38,7 +38,7 @@ app.get('/cart/edit', (req, res) => {
   let productId = parseInt(req.query.productId);
   let quantity = parseInt(req.query.quantity);
   let result = updateQuantityById(cart, productId, quantity);
-  res.json(result);
+  res.json({cartItems:result});
 });
 function deleteItemFromCart(cart, productId) {
   return cart.productId != productId;
@@ -47,10 +47,10 @@ app.get('/cart/delete', (req, res) => {
   let productId = parseInt(req.query.productId);
   let result = cart.filter((cart) => deleteItemFromCart(cart, productId));
   cart = result;
-  res.json(result);
+  res.json({cartItems:result});
 });
 app.get('/cart', (req, res) => {
-  res.json(cart);
+  res.json({cartItems:cart});
 });
 function calculateTotalQuantity(cart) {
   let totalQuantity = 0;
